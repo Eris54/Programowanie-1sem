@@ -75,6 +75,7 @@ void Paint::menuState() {
 		system("pause");
 		menuState();
 	} else if (choice == 5) {
+		remove("temp");
 		exit(0);
 	}
 }
@@ -221,13 +222,13 @@ void Paint::drawPixel(const long& x, const long& y) {
 void Paint::save2file(string path) {
 	char header[54] = {
 		0x42, 0x4d,				//file magic number
-		0x36, 0x00, 0x0c, 0x00,	//file size (with header)			#!# 36 + pix ** 2 * 3 + padding * height
+		0x36, 0x00, 0x0c, 0x00,	//file size (with header)				#!# 36 + pix ** 2 * 3 + padding * height
 		0x00, 0x00, 0x00, 0x00,	//firmware stuff
 		0x36, 0x00, 0x00, 0x00, //pixel array position - after header
 		0x28, 0x00, 0x00, 0x00,	//dpi header length
 		0x00, 0x02, 0x00, 0x00,	//width px		- 512					#!# pix
 		0x00, 0x02, 0x00, 0x00,	//height px		- 512					#!# pix
-		0x01, 0x00,				//color plane - 1
+		0x01, 0x00,				//color plane	- 1
 		0x18, 0x00,				//bits per pixel - 24
 		0x00, 0x00, 0x00, 0x00, //compression - none
 		0x00, 0x00, 0x0c, 0x00, //img size in bytes (no header)			#!# pix ** 2 * 3 + padding * height
@@ -313,5 +314,5 @@ Paint::Paint() {
 }
 
 Paint::~Paint() {
-	remove("temp");
+	//maybe I should add something in here
 }
